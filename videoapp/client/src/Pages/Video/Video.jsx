@@ -4,10 +4,34 @@ import ThumbDownOffAltOutlinedIcon from "@mui/icons-material/ThumbDownOffAltOutl
 import ReplyOutlinedIcon from "@mui/icons-material/ReplyOutlined";
 import AddTaskOutlinedIcon from "@mui/icons-material/AddTaskOutlined";
 import { Card, Comment } from "../../Components/index";
-
+import { useDispatch, useSelector } from 'react-redux';
+import { useLocation } from "react-router-dom";
+import axios from "axios";
+import { like, dislike, fetchFailure, fetchSuccess, fetchStart } from '../../Redux/videoSlice.js';
+import { format} from 'timeago.js'
+import { subscription } from "../../Redux/userSlice.js";
+import Recomendation from '../../Components/Recomdation/Recomendation.jsx'
+import { useEffect, useState } from "react";
 
 
 const Video = () => {
+  const { currentUser } = useSelector((state)=> state.user);
+  const { currentVideo } = useSelector((state)=> state.video);
+  const dispatch = useDispatch();
+  const path = useLocation().pathname.split("/")[2];
+
+  const [channel, setChannel] = useState({});
+
+  useEffect(()=>{
+    const fetchData = async () =>{
+      dispatch(fetchStart());
+      try{
+        const videoRes = await axios
+      }catch(err){
+        dispatch(fetchFailure(err));
+      }
+    }
+  }, [path, dispatch]);
   return (
     <div className="v-container">
       <div className="v-content">
@@ -81,18 +105,7 @@ const Video = () => {
           <Comment/>
         </div>
       </div>
-      <div className="recomendation">
-
-        <Card type='sm'/>
-        <Card type='sm'/>
-        <Card type='sm'/>
-        <Card type='sm'/>
-        <Card type='sm'/>
-        <Card type='sm'/>
-        <Card type='sm'/>
-        <Card type='sm'/>
-        <Card type='sm'/>
-      </div>
+      <Recomendation/>
 
     </div>
   )
