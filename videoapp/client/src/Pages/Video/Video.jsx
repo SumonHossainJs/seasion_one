@@ -26,11 +26,18 @@ const Video = () => {
     const fetchData = async () =>{
       dispatch(fetchStart());
       try{
-        const videoRes = await axios
+        const videoRes = await axios.get(`http://localhost:5030/video/find/${path}`);
+        const channelRes = await axios.get(`users/find/${videoRes.data.userId}`);
+
+        setChannel(channelRes.data);
+        dispatch(fetchSuccess(videoRes.data));
+        console.log(videoRes.data);
+        console.log(channelRes.data);
       }catch(err){
         dispatch(fetchFailure(err));
       }
     }
+    fetchData();
   }, [path, dispatch]);
   return (
     <div className="v-container">
