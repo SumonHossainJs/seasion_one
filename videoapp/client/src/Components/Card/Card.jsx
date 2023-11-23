@@ -20,7 +20,7 @@ const Card = ({ video, type}) => {
               videoChannle
             </span>
             <span className="views">
-             hgjhgjkhk Views • 1 day ago
+             Al hamdulilah Views • 1 day ago
             </span>
           </div>
         </div>
