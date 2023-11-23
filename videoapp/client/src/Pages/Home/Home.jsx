@@ -17,7 +17,7 @@ const Home = () => {
   return (
     <div className='videoShowcase'>
        {videos.map((video) => {
-        console.log(video)
+       
         return  (
         <Card key={video._id} video={video} type={"bigeee"}/>
 
