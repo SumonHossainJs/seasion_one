@@ -4,6 +4,9 @@ import { useState } from 'react';
 import { useDispatch} from 'react-redux';
 import { loginStart, loginFailure, loginSuccess } from '../../Redux/userSlice';
 import {useNavigate} from 'react-router-dom';
+import { signInWithPopup } from "firebase/auth";
+
+import { auth, provider } from '../../firebase.js';
 
 const Login = () => {
     const [name, setName] = useState('');
@@ -12,6 +15,29 @@ const Login = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
+    const signInWithGoogle = async () => {
+      dispatch(loginStart());
+      signInWithPopup(auth, provider)
+        .then((result) => {
+          axios
+            .post("/auth/google", {
+              name: result.user.displayName,
+              email: result.user.email,
+              img: result.user.photoURL,
+            })
+            .then((res) => {
+              console.log(res)
+              dispatch(loginSuccess(res.data));
+              navigate("/")
+            });
+        })
+        .catch((error) => {
+          dispatch(loginFailure());
+        });
+    };
+  
+
+   
     const handleSignup = async (e) =>{
       e.preventDefault();
       dispatch(loginStart);
@@ -44,6 +70,10 @@ const Login = () => {
           <input type="text" placeholder='Username' onChange={(e) => setName(e.target.value)} />
           <input type="password" placeholder='Password' onChange={(e) => setPassword(e.target.value)} />
           <div className="log-btn">SignIn</div>
+        </div>
+
+        <div className="goole">
+          <button onClick={signInWithGoogle}>Goolge</button>
         </div>
 
         Or
