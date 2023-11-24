@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "./Card.scss";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import {format} from 'timeago.js';
 
 const Card = ({ video, type }) => {
   const [channel, setChannel] = useState({});
@@ -46,7 +47,7 @@ const Card = ({ video, type }) => {
           }}
         >
           <img
-            style={{ height: type === "sm" ? "120px" : "202px" }}
+            style={{ height: type === "sm" ? "120px" : "202px", width: type === 'sm' ? "100px" : "304px", opacity: type === "sm"? "0.5":'1' }}
             className="th"
             src={
               isJpg
@@ -67,10 +68,10 @@ const Card = ({ video, type }) => {
             />
             <div className="texts">
               <div className="Title">
-                {video?.title && video.title.split(' ').length > 5 ? `${getFirstWords(video?.title, 5)}...` : video.title || "Dummy Title "}
+                {video?.title && video?.title.split(' ').length > 5 ? `${getFirstWords(video?.title, 5)}...` : video?.title || "Dummy Title "}
               </div>
               <span className="channelName">{channel?.name}</span>
-              <span className="views">Al hamdulilah Views • 1 day ago</span>
+              <span className="views">{video?.views} Views • {format(video?.createdAt)} </span>
             </div>
           </div>
         </div>
