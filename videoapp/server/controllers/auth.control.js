@@ -45,13 +45,13 @@ export const signin = async (req, res, next) =>{
 export const fromGoogle = async (req, res, next) =>{
     try{
         const user = await User.findOne({email:req.body.email});
-
+            console.log(req.body.email);
         if(user){
             const token = jwt.sign({id:user._id}, process.env.JWT);
-
+            console.log(user);
             res.cookie("access_token", token, {
                 httpOnly: true,
-            }).status(200).json(user.doc);
+            }).status(200).json(user);
         } else{
             const newUser = new User({
                 ...req.body, fromGoogle:true,
@@ -59,10 +59,10 @@ export const fromGoogle = async (req, res, next) =>{
 
             const savedUser = await newUser.save();
             const token = jwt.sign({id:user._id}, process.env.JWT);
-
+            console.log(savedUser);
             res.cookie("access_token", token, {
                 httpOnly: true,
-            }).status(200).json(savedUser.doc);
+            }).status(200).json(savedUser);
         
         }
         

@@ -1,4 +1,4 @@
-import './Menu.scss';
+import "./Menu.scss";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import HomeIcon from "@mui/icons-material/Home";
 import ExploreOutlinedIcon from "@mui/icons-material/ExploreOutlined";
@@ -16,62 +16,65 @@ import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import FlagOutlinedIcon from "@mui/icons-material/FlagOutlined";
 import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
 import SettingsBrightnessOutlinedIcon from "@mui/icons-material/SettingsBrightnessOutlined";
-import {Link} from 'react-router-dom';
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Menu = () => {
+  const { currentUser } = useSelector((state) => state.user);
   return (
-    <div className='item-con'>
+    <div className="item-con">
       <Link to="/" className="item">
-        <HomeIcon/>
+        <HomeIcon />
         Home
       </Link>
-      <Link to={'/'} className="item">
-        <ExploreOutlinedIcon/>
+      <Link to={"/"} className="item">
+        <ExploreOutlinedIcon />
         Explore
       </Link>
-      <Link to='/' className="item">
-        <SubscriptionsOutlinedIcon/>
+      <Link to="/" className="item">
+        <SubscriptionsOutlinedIcon />
         Subscription
       </Link>
       <hr />
-      <div className="Login">
-        Sign in to like Videos, comment and Subscribe.
-        <Link to='/login'>
-       <div className="signin">
-        <AccountCircleOutlinedIcon/>
-        Sign In
-      </div>
-        </Link>
-      </div>
-      <hr />
-      <span className="title">
-        Best of Video app
-      </span>
+
+      {!currentUser && (
+        <>
+          <div className="Login">
+            Sign in to like Videos, comment and Subscribe.
+            <Link to="/login">
+              <div className="signin">
+                <AccountCircleOutlinedIcon />
+                Sign In
+              </div>
+            </Link>
+          </div>
+          <hr />
+        </>
+      )}
+
+      <span className="title">Best of Video app</span>
       <div className="item">
-        <LibraryMusicOutlinedIcon/>
+        <LibraryMusicOutlinedIcon />
         Library
       </div>
       <div className="item">
-        <HistoryOutlinedIcon/>
+        <HistoryOutlinedIcon />
         History
       </div>
       <div className="item">
-        <SportsBasketballOutlinedIcon/>
+        <SportsBasketballOutlinedIcon />
         Gaming
       </div>
       <div className="item">
-        <MovieOutlinedIcon/>
+        <MovieOutlinedIcon />
         Movie
       </div>
       <div className="item">
-        <LiveTvOutlinedIcon/>
+        <LiveTvOutlinedIcon />
         Live
       </div>
-
-      
-     
     </div>
-  )
-}
+  );
+};
 
-export default Menu
+export default Menu;
