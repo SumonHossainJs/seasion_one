@@ -71,7 +71,7 @@ const Card = ({ video, type }) => {
                 {video?.title && video?.title.split(' ').length > 5 ? `${getFirstWords(video?.title, 5)}...` : video?.title || "Dummy Title "}
               </div>
               <span className="channelName">{channel?.name}</span>
-              <span className="views">{video?.views} Views • {video?.createdAt} </span>
+              <span className="views">{video?.views} Views • {format(video?.createdAt)} </span>
             </div>
           </div>
         </div>
