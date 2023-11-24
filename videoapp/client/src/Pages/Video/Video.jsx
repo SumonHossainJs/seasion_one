@@ -17,7 +17,7 @@ import {
 import { format } from "timeago.js";
 import { subscription } from "../../Redux/userSlice.js";
 import Recomendation from "../../Components/Recomdation/Recomendation.jsx";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Video = () => {
@@ -25,10 +25,10 @@ const Video = () => {
   const { currentVideo } = useSelector((state) => state.video);
   const dispatch = useDispatch();
   const path = useLocation().pathname.split("/")[2];
-  console.log(path);
   const navigate = useNavigate();
 
   const [channel, setChannel] = useState({});
+  const hasViewed = useRef(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -37,6 +37,15 @@ const Video = () => {
         const videoRes = await axios.get(
           `http://localhost:5030/video/find/${path}`
         );
+
+        if (!localStorage.getItem('viewAdded')) { 
+          const view = await axios.put(
+            `http://localhost:5030/video/view/${path}`
+          );
+          
+          localStorage.setItem('viewAdded', 'true');
+        }
+
         const channelRes = await axios.get(
           `http://localhost:5030/user/find/${videoRes.data.userId}`
         );
@@ -49,6 +58,19 @@ const Video = () => {
     };
     fetchData();
   }, [path, dispatch]);
+
+  useEffect(() => {
+    const handleBeforeUnload = () => {
+      localStorage.removeItem('viewAdded');
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, []);
+
 
   const handleLike = async () => {
     if (!currentUser) {
