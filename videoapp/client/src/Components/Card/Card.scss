@@ -29,6 +29,9 @@
             gap: 5px;
             .title{
                 font-size: 1.1rem;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
             }
             .channelName{
                 font-size: 1rem;
