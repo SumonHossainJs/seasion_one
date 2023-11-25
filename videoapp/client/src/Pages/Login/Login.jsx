@@ -24,7 +24,7 @@ const Login = () => {
               name: result.user.displayName,
               email: result.user.email,
               img: result.user.photoURL,
-            })
+            }, { withCredentials: true })
             .then((res) => {
               console.log(res.data)
               dispatch(loginSuccess(res.data));
@@ -42,7 +42,7 @@ const Login = () => {
       e.preventDefault();
       dispatch(loginStart);
       try{
-        const res = await axios.post("http://localhost:5030/signup", {name, email, password});
+        const res = await axios.post("http://localhost:5030/signup", {name, email, password}, { withCredentials: true });
         dispatch(loginSuccess(res.data));
         console.log(res.data);
       }catch(err){
@@ -53,7 +53,7 @@ const Login = () => {
       e.preventDefault();
       dispatch(loginStart);
       try{
-        const res = await axios.post("http://localhost:5030/signup", {name,  password});
+        const res = await axios.post("http://localhost:5030/signin", { name, password }, { withCredentials: true });
         dispatch(loginSuccess(res.data));
         console.log(res.data);
       }catch(err){
@@ -69,7 +69,7 @@ const Login = () => {
         <div className="log">
           <input type="text" placeholder='Username' onChange={(e) => setName(e.target.value)} />
           <input type="password" placeholder='Password' onChange={(e) => setPassword(e.target.value)} />
-          <div className="log-btn">SignIn</div>
+          <div className="log-btn" onClick={handleLog}>SignIn</div>
         </div>
 
         <div className="goole">

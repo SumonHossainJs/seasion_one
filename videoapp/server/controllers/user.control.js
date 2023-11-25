@@ -1,6 +1,7 @@
 import { createError } from "../error.js";
 import User from "../models/user.model.js";
 import Video from "../models/video.model.js";
+import { isValidObjectId } from 'mongoose';
 
 export const Update = async (req, res, next) => {
   if (req.params.id === req.user.id) {
@@ -67,33 +68,82 @@ export const unsubscribe = async (req, res, next) => {
 export const like = async (req, res, next) => {
   try {
     const id = req.user.id;
-    const videoId = req.params.id;
+    const videoId = req.params.videoId;
 
-    await Video.findByIdAndUpdate(videoId, {
+    
+
+    const likeaddedVideo = await Video.findByIdAndUpdate(videoId, {
       $addToSet: { likes: id },
       $pull: { disLikes: id },
+    },{
+      new: true,
     });
 
-    res.status(200).json("The video has been Liked");
-  } catch (err) {
+    res.status(200).json(likeaddedVideo);
+  }  catch (err) {
+    if (err.name === 'MongoServerError' && err.code === 16837) {
+      
+      return res.status(400).json({ error: 'Invalid operation on likes field' });
+    }
+    console.error(err); 
     next(err);
   }
 };
+// export const disLike = async (req, res, next) => {
+//   const id = req.user.id;
+//   const videoId = req.params.id;
+
+//   try {
+//     const dislikedVideo = await Video.findByIdAndUpdate(videoId, {
+//       $addToSet: { disLikes: id },
+//       $pull: { likes: id },
+//     }, {
+//       new: true,
+//     });
+
+//     res.status(200).json(dislikedVideo);
+//   } catch (err) {
+//     next(err);
+//   }
+// };
 export const disLike = async (req, res, next) => {
-  const id = req.user.id;
-  const videoId = req.params.id;
+  console.log(req.params.videoId);
+  const userId = req.user.id;
+  const videoId = req.params.videoId;
+  console.log(req.params.videoId);
+  // Validate user ID and video ID
+  if (!isValidObjectId(userId) || !isValidObjectId(videoId)) {
+    return res.status(400).json({ error: 'Invalid user ID or video ID' });
+  }
 
   try {
-    await Video.findByIdAndUpdate(videoId, {
-      $addToSet: { disLikes: id },
-      $pull: { likes: id },
-    });
+    const dislikedVideo = await Video.findByIdAndUpdate(
+      videoId,
+      {
+        $addToSet: { disLikes: userId },
+        $pull: { likes: userId },
+      },
+      {
+        new: true,
+      }
+    );
 
-    res.status(200).json("The video has been disLiked");
+    if (!dislikedVideo) {
+      return res.status(404).json({ error: 'Video not found' });
+    }
+
+    res.status(200).json(dislikedVideo);
   } catch (err) {
+    if (err.name === 'MongoServerError' && err.code === 16837) {
+      return res.status(400).json({ error: 'Invalid operation on likes field' });
+    }
+    console.error(err); 
     next(err);
   }
 };
+
+
+
 
 export const Alluser = async (req, res, next) => {
   try {

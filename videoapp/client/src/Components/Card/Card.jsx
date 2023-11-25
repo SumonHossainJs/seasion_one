@@ -3,6 +3,7 @@ import "./Card.scss";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import {format} from 'timeago.js';
+import dummyImage from '../../assets/dummy.avif';
 
 const Card = ({ video, type }) => {
   const [channel, setChannel] = useState({});
@@ -17,7 +18,6 @@ const Card = ({ video, type }) => {
         );
         setChannel(res.data);
       } catch (err) {
-        console.log(err);
       }
     };
 
@@ -52,7 +52,7 @@ const Card = ({ video, type }) => {
             src={
               isJpg
                 ? video?.imgUrl
-                : "https://images.unsplash.com/photo-1682685797527-63b4e495938f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                : dummyImage
             }
             alt=""
           />

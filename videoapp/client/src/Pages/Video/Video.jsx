@@ -28,7 +28,8 @@ const Video = () => {
   const navigate = useNavigate();
 
   const [channel, setChannel] = useState({});
-  const hasViewed = useRef(false);
+  const videoId = currentVideo?._id;
+  console.log(videoId)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -37,6 +38,7 @@ const Video = () => {
         const videoRes = await axios.get(
           `http://localhost:5030/video/find/${path}`
         );
+        console.log(videoRes)
 
         if (!localStorage.getItem('viewAdded')) { 
           const view = await axios.put(
@@ -71,15 +73,43 @@ const Video = () => {
     };
   }, []);
 
-
   const handleLike = async () => {
+
+    console.log(videoId)
     if (!currentUser) {
       navigate("/login");
     } else {
-      await axios.put(`/users/like/${currentVideo._id}`);
+      console.log(videoId)
+     const res = await axios.put(
+        `http://localhost:5030/user/like/${videoId}`,
+        {},
+        {
+          withCredentials: true,
+        }
+      );
+      console.log("log" +res)
       dispatch(like(currentUser._id));
     }
   };
+
+
+  const handledisLike = async () => {
+    if (!currentUser) {
+      navigate("/login");
+    } else {
+     const res = await axios.put(
+        `http://localhost:5030/user/dislike/${videoId}`,
+        {},
+        {
+          withCredentials: true,
+        }
+      );
+      console.log(res);
+      dispatch(dislike(currentUser._id));
+    }
+  };
+
+  
 
   return (
     <div className="v-container">
@@ -104,8 +134,8 @@ const Video = () => {
             <div className="btn" onClick={handleLike}>
               <ThumbUpOutlinedIcon /> {currentVideo?.likes?.length}
             </div>
-            <div className="btn">
-              <ThumbDownOffAltOutlinedIcon /> Dislike
+            <div className="btn" onClick={handledisLike}>
+              <ThumbDownOffAltOutlinedIcon /> {currentVideo?.dislikes?.length}
             </div>
             <div className="btn">
               <ReplyOutlinedIcon /> Share
@@ -157,7 +187,7 @@ const Video = () => {
           <Comment />
         </div>
       </div>
-      <Recomendation />
+      <Recomendation /> 
     </div>
   );
 };

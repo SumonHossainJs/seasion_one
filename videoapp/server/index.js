@@ -14,12 +14,14 @@ const app = express();
 dotenv.config();
 const PORT = 5030;
 
+app.use(cors({ origin: "http://localhost:5173", credentials: true }));
+
+
 
 //   middlewares 
 
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors())
 
 // route handlders 
 
