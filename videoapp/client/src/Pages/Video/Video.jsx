@@ -7,6 +7,10 @@ import { Card, Comment } from "../../Components/index";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
+import ThumbUpIcon from "@mui/icons-material/ThumbUp";
+import ThumbDownIcon from "@mui/icons-material/ThumbDown";
+
+
 import {
   like,
   dislike,
@@ -144,10 +148,18 @@ const Video = () => {
           </div>
           <div className="all-btns">
             <div className="btn" onClick={handleLike}>
-              <ThumbUpOutlinedIcon /> {currentVideo?.likes?.length}
+            {currentVideo.likes?.includes(currentUser?._id) ? (
+                <ThumbUpIcon />
+              ) : (
+                <ThumbUpOutlinedIcon />
+              )}{" "} {currentVideo?.likes?.length}
             </div>
             <div className="btn" onClick={handledisLike}>
-              <ThumbDownOffAltOutlinedIcon /> {currentVideo?.dislikes?.length}
+            {currentVideo.dislikes?.includes(currentUser?._id) ? (
+                <ThumbDownIcon />
+              ) : (
+                <ThumbDownOffAltOutlinedIcon />
+              )}{" "} {currentVideo?.dislikes?.length}
             </div>
             <div className="btn">
               <ReplyOutlinedIcon /> Share
