@@ -89,7 +89,7 @@ export const like = async (req, res, next) => {
     next(err);
   }
 };
-// export const disLike = async (req, res, next) => {
+
 //   const id = req.user.id;
 //   const videoId = req.params.id;
 

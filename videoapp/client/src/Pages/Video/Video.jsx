@@ -109,6 +109,18 @@ const Video = () => {
     }
   };
 
+  const handleSub = async () => {
+
+ 
+
+  const subscribedUser = currentUser.subscribedUser || [];
+  console.log(subscribedUser)
+   subscribedUser.includes(channel._id)
+      ? await axios.put(`http://localhost:5030/user/unsub/${channel._id}`, {}, {withCredentials:true})
+      : await axios.put(`http://localhost:5030/user/sub/${channel._id}`,{},{withCredentials:true});
+    dispatch(subscription(channel._id));
+  };
+
   
 
   return (
@@ -158,13 +170,15 @@ const Video = () => {
               <h3>Channel name</h3>
               <span className="subCount">200k subscribers</span>
               <span className="desc">
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Est
-                rerum velit cum. Eum unde architecto ut. Expedita harum aperiam
-                molestias!
+                {currentVideo.desc}
               </span>
             </div>
           </div>
-          <div className="subscribe">Subscribe</div>
+          <div className="subscribe" onClick={handleSub}>
+          {currentUser.subscribedUser?.includes(channel._id)
+              ? "SUBSCRIBED"
+              : "SUBSCRIBE"}
+            </div>
         </div>
 
         <hr />
