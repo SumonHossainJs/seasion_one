@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import Cookies from 'js-cookie';
 
 const initialState = {
   currentUser: null,
@@ -27,8 +28,6 @@ export const userSlice = createSlice({
       state.error = false;
     },
     subscription: (state, action) => {
-      
-
       if (state.currentUser.subscribedUser.includes(action.payload)) {
         state.currentUser.subscribedUser.splice(
           state.currentUser.subscribedUser.findIndex(
@@ -40,10 +39,24 @@ export const userSlice = createSlice({
         state.currentUser.subscribedUser.push(action.payload);
       }
     },
+    checkAccessTokenCookie: (state) => {
+      const accessToken = Cookies.get('access_token');
+
+      if (!accessToken) {
+        // If access_token cookie does not exist, clear the current user
+        state.currentUser = null;
+      }
+    },
   },
 });
 
-export const { loginStart, loginSuccess, loginFailure, logout, subscription } =
-  userSlice.actions;
+export const {
+  loginStart,
+  loginSuccess,
+  loginFailure,
+  logout,
+  subscription,
+  checkAccessTokenCookie, // Added the new action
+} = userSlice.actions;
 
 export default userSlice.reducer;

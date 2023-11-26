@@ -1,10 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
 import { Home, Login, Video } from "./Pages";
 import { Navbar, Menu } from "./Components";
 import './Styles/Global.scss';
+import { useDispatch } from 'react-redux';
+import { checkAccessTokenCookie } from "./Redux/userSlice";
 
 const App = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() =>{
+    dispatch(checkAccessTokenCookie());
+  },[dispatch]);
+  
   const Layout = () => {
     return (
       <div className="main">
