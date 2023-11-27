@@ -33,7 +33,6 @@ const Video = () => {
   const [channel, setChannel] = useState({});
   const [description, setdescription] = useState('');
   const videoId = currentVideo?._id;
-  console.log(videoId);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -162,7 +161,7 @@ const Video = () => {
           </div>
           <div className="all-btns">
             <div className="btn" onClick={handleLike}>
-              {currentVideo.likes?.includes(currentUser?._id) ? (
+              {currentVideo?.likes?.includes(currentUser?._id) ? (
                 <ThumbUpIcon />
               ) : (
                 <ThumbUpOutlinedIcon />
@@ -170,7 +169,7 @@ const Video = () => {
               {currentVideo?.likes?.length}
             </div>
             <div className="btn" onClick={handledisLike}>
-              {currentVideo.dislikes?.includes(currentUser?._id) ? (
+              {currentVideo?.disLikes?.includes(currentUser?._id) ? (
                 <ThumbDownIcon />
               ) : (
                 <ThumbDownOffAltOutlinedIcon />
@@ -201,7 +200,7 @@ const Video = () => {
             </div>
           </div>
           <div className="subscribe" onClick={handleSub}>
-            {currentUser.subscribedUser?.includes(channel._id)
+            {currentUser?.subscribedUser?.includes(channel._id)
               ? "SUBSCRIBED"
               : "SUBSCRIBE"}
           </div>

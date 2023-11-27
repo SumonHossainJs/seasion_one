@@ -1,22 +1,77 @@
+import { useEffect, useState } from "react";
 import "./Comment.scss";
+import { useSelector } from "react-redux";
+import axios from "axios";
+import { format } from "timeago.js";
 
-const Commet = () => {
+
+const Commet = ({videoId}) => {
+  const currentUser = useSelector((state) => state.user);
+  const [comments, setComments] = useState([]);
+
+
+  useEffect(()=>{
+    const getComments = async () =>{
+      try{
+       const res = await axios.get(`http://localhost:5030/comment/${videoId}`);
+       setComments(res.data);
+      }catch(err){
+        console.log(err);
+      }
+    }
+    getComments();
+  },[videoId]);
+
+  useEffect(()=>{
+    try{
+      
+    }catch(err){
+      next(err);
+    }
+  },[comments.userId]);
+
   return (
+    comments.map(comment =>(
+      <SingleCommnet key={comment._id} comment={comment}/>
+    )) 
+  )
+}
+
+
+ const SingleCommnet = ({comment}) =>{
+  const [commentedUser, setCommentedUser] = useState()
+
+  useEffect(()=>{
+    const fetchUser = async () =>{
+
+      try{
+        const cRes = await axios.get(
+          `http://localhost:5030/user/find/${comment.userId}`
+        );
+        setCommentedUser(cRes.data);
+        
+      }catch(err){
+        next(err);
+      }
+    }
+    fetchUser();
+  },[comment.userId]);
+  return(
     <div className="comment-con">
       <div className="img-con">
-        <img src="https://images.unsplash.com/photo-1682686581740-2c5f76eb86d1?auto=format&fit=crop&q=60&w=500&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxfHx8ZW58MHx8fHx8" alt="" />
+        <img src={commentedUser?.img} alt="" />
       </div>
       <div className="c-desc">
         <div className="top">
-          <span className="userName"> John doe</span>
-          <span className="date">1 day ago</span>
+          <span className="userName">{commentedUser?.name}</span>
+          <span className="date">{format(comment.createdAt)}</span>
         </div>
         <div className="desc">
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quasi, fugit ipsum? Numquam saepe, suscipit aliquam totam ab libero at dignissimos deleniti modi consequatur aut ipsa quo facilis ducimus. Velit, dignissimos?
+          {comment.desc}
         </div>
       </div>
     </div>
   )
-}
+ }
 
 export default Commet

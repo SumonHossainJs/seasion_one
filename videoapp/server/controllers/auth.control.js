@@ -28,11 +28,12 @@ export const signin = async (req, res, next) => {
     const token = jwt.sign({ id: user._id }, process.env.JWT);
 
     res
-      .cookie("access_token", token, {
-        httpOnly: true,
-      })
+      .cookie("access_token", token, { })
       .status(200)
-      .json(user._doc);
+      .json({
+        user: user._doc, // Include user data in the response
+        accessToken: token, // Include the access token in the response
+      });
   } catch (err) {
     next(err);
   }
@@ -45,7 +46,7 @@ export const fromGoogle = async (req, res, next) => {
       const token = jwt.sign({ id: user._id }, process.env.JWT);
       res
         .cookie("access_token", token, {
-          httpOnly: true,
+          
         })
         .status(200)
         .json(user._doc);
@@ -59,11 +60,12 @@ export const fromGoogle = async (req, res, next) => {
       const token = jwt.sign({ id: user._id }, process.env.JWT);
       console.log(savedUser);
       res
-        .cookie("access_token", token, {
-          httpOnly: true,
-        })
+        .cookie("access_token", token, {httpOnly: false })
         .status(200)
-        .json(savedUser);
+        .json({
+          user: savedUser, // Include user data in the response
+          accessToken: token, // Include the access token in the response
+        });
     }
   } catch (err) {
     next(err);

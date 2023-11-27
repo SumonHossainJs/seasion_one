@@ -1,5 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
-import Cookies from 'js-cookie';
+import { Cookies } from "react-cookie"; // Import Cookies from react-cookie
+
+const cookies = new Cookies(); // Create an instance of Cookies
 
 const initialState = {
   currentUser: null,
@@ -40,7 +42,10 @@ export const userSlice = createSlice({
       }
     },
     checkAccessTokenCookie: (state) => {
-      const accessToken = Cookies.get('access_token');
+      const accessToken = cookies.get("access_token"); // Use get 
+      
+      const allCookies = cookies.getAll();
+      console.log(allCookies);
 
       if (!accessToken) {
         // If access_token cookie does not exist, clear the current user
@@ -56,7 +61,7 @@ export const {
   loginFailure,
   logout,
   subscription,
-  checkAccessTokenCookie, // Added the new action
+  checkAccessTokenCookie,
 } = userSlice.actions;
 
 export default userSlice.reducer;
