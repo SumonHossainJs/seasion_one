@@ -22,7 +22,10 @@ const Navbar = () => {
       </div>
       {currentUser ? (
         <div className="user">
+          <Link to={"/upload"}>
+
           <VideoCallOutlinedIcon />
+          </Link>
           <img src={currentUser.img} alt="user profile pic" />
           <span>{currentUser.name}</span>
         </div>

@@ -5,6 +5,7 @@ import { Navbar, Menu } from "./Components";
 import './Styles/Global.scss';
 import { useDispatch } from 'react-redux';
 import { checkAccessTokenCookie } from "./Redux/userSlice";
+import Upload from "./Pages/Upload/Upload";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -51,6 +52,10 @@ const router = createBrowserRouter([
         path: "/login",
         element: <Login />,
       },
+      {
+        path:"/upload",
+        element:<Upload/>
+      }
     ],
   },
   
