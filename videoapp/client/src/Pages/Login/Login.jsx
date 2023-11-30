@@ -126,8 +126,12 @@ const Login = () => {
           <div className="log-btn" onClick={handleSignup}>
             SignIn
           </div>
+          
         </div>
       </div>
+
+{/* <h1>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quasi pariatur repellat voluptatem a aperiam, similique minima quos eos, eius iusto et distinctio fugit animi sapiente harum incidunt quisquam doloribus? Molestias nam nihil tenetur atque voluptate quis assumenda eum consequuntur itaque?</h1> */}
+
     </div>
   );
 };
