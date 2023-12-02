@@ -1,0 +1,41 @@
+.container{
+
+}
+.heroPart{
+    width: 100%;
+    height: 40vh;
+    position: relative;
+    background:linear-gradient(rgba(0, 0, 0, 0.168),rgba(0, 0, 0, 0.527)),url('https://images.pexels.com/photos/356056/pexels-photo-356056.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
+    background-size: cover;
+    background-position: center center;
+    border-radius: 10px;
+}
+.wrapper{
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+}
+.wrapper h2{
+    font-size: 3rem;
+    padding: 10px 0;
+}
+.wrapper p{
+    font-size: 1.2rem;
+}
+.boxCon{
+    display: flex;
+    margin-top: 30px;
+    gap: 40px;
+}
+.boxItem{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.title{
+    font-size: 3rem;
+}
+.desc{
+    font-size: 1.3rem;
+    line-height: 130%;
+}

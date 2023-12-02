@@ -1,6 +1,9 @@
 .selectTitle{
     margin: 20px 0;
 }
+.mainTitle{
+    font-size: 3.5rem;
+}
 .items{
     display: flex;
     gap: 50px;
@@ -15,7 +18,7 @@
 }
 
 .item:nth-child(1){
-    background-color: url("/illustration.png");
+    background: url("/illustration.png");
 }
 .item:nth-child(2){
     background: url("/websites.jpg");
