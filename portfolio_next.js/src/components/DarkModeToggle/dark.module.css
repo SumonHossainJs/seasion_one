@@ -9,6 +9,7 @@
     padding: 2px;
     position: relative;
     cursor: pointer;
+    transition: 10s all ease;
   }
   
   .icon {
@@ -21,11 +22,12 @@
     background-color: #53c28b;
     border-radius: 50%;
     position: absolute;
-    transition: left 30s ease, right 30s ease; /* Apply separate transitions */
+    
   }
   
   .lightMode {
     left: 2px;
+   
   }
   
   .darkMode {
