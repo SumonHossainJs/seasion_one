@@ -6,7 +6,6 @@ import Image from "next/image";
 
 async function getData() {
   const res = await fetch('https://jsonplaceholder.typicode.com/posts',{ next: { revalidate: 3600 } })
-  console.log(res);
  
  
  
@@ -15,11 +14,10 @@ async function getData() {
 
 const Blog = async () => {
   const data = await getData();
-  console.log(data);
   return (
     <div className={styles.mainContainer}>
       {data.map((item) => (
-        <Link href={`/blog/${item._id}`} className={styles.container} key={item.id}>
+        <Link href={`/blog/${item.id}`} className={styles.container} key={item.id}>
           <div className={styles.imageContainer}>
             <Image
               src={"https://images.pexels.com/photos/18978812/pexels-photo-18978812/free-photo-of-young-redhead-in-a-leather-jacket-and-sunglasses-sitting-on-a-bench.png?auto=compress&cs=tinysrgb&w=600&lazy=load"}
