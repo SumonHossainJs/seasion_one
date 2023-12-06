@@ -5,6 +5,7 @@ const Connect = async () =>{
         await mongoose.connect(process.env.MONGO);
         console.log("server is up and running");
     }catch(err){
+        console.log(err);
         throw new Error("Conection failed");
     }
 }
