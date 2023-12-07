@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
+import authRoute from './routes/auth.route.js';
 
 const app = express();
 const PORT = 5005;
@@ -22,6 +23,9 @@ const connect = async () =>{
 app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
+
+
+app.use("/auth", authRoute);
 
 
 
