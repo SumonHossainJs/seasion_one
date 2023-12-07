@@ -56,11 +56,11 @@ const gigSchema = new Schema({
         required:true,
     },
     sellerId:{
-        type:[String],
+        type:String,
         required:false,
     },
     images:{
-        type:String,
+        type:[String],
         required:true,
     }
 }, {timestamps: true});
