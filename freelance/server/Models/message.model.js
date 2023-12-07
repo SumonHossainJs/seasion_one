@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
 const { Schema } = mongoose;
 
-const reviewSchema = new Schema({
-    gigId:{
+const messageSchema = new Schema({
+    conversationId:{
         type:String, 
         required:true,
     },
@@ -10,11 +10,7 @@ const reviewSchema = new Schema({
         type:String,
         required:true,
     },
-    star:{
-        type:Number,
-        required:true,
-        enum:[1,2,3,4,5]
-    },
+    
     desc:{
         type:String,
         required:true,
@@ -22,4 +18,4 @@ const reviewSchema = new Schema({
    
 }, {timestamps: true});
 
-export default mongoose.model('review', reviewSchema);
+export default mongoose.model('message', messageSchema);
