@@ -5,12 +5,10 @@ const reviewSchema = new Schema({
     gigId:{
         type:String, 
         required:true,
-        unique:true,
     },
     userId:{
         type:String,
         required:true,
-        unique: true,
     },
     star:{
         type:Number,
