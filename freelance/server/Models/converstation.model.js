@@ -18,7 +18,7 @@ const conversationSchema = new Schema({
         type:String,
         required:false,
     },
-    readbyUser:{
+    readbySeller:{
         type:Boolean,
         required: true,
     },
