@@ -8,6 +8,7 @@ import userRoute from './routes/user.route.js';
 import gigRoute from './routes/gig.route.js';
 import reviewRoute from './routes/review.route.js';
 import orderRoute from './routes/order.route.js';
+import messagesRoute from './routes/message.route.js';
 
 const app = express();
 const PORT = 5005;
@@ -34,6 +35,8 @@ app.use('/user', userRoute);
 app.use('/gig', gigRoute);
 app.use('/review', reviewRoute);
 app.use('/order', orderRoute);
+
+app.use('/messages',messagesRoute);
 
 
 
