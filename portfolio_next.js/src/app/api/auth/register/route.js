@@ -15,9 +15,11 @@ export const POST = async (request) => {
     email,
     password: hashedPassword,
   });
+  const savedUser =  await newUser.save();
+  console.log(savedUser);
 
   try {
-    await newUser.save();
+  
     return new NextResponse("User has been created", {
       status: 201,
     });

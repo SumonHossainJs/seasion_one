@@ -28,9 +28,10 @@ const Register = () => {
           password,
         }),
       });
-
+      console.log(res);
       res.status === 201 &&
       router.push("/dashboard/login?success=Account has been created");
+      console.log(res);
     } catch (err) {
       setError(err);
       console.log(err);
@@ -47,12 +48,12 @@ const Register = () => {
             required
             className={styles.input}
             />
-            <input type="email"
+            <input type="text"
             placeholder="Email"
             required
             className={styles.input}
             />
-            <input type="password"
+            <input type="text"
             placeholder="Password"
             required
             className={styles.input}
