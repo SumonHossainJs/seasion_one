@@ -1,14 +1,27 @@
 'use client'
-import React from 'react'
-import useSWR from 'swr'
+import React, { useReducer } from 'react'
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 
-const fetcher = (...args) => fetch(...args).then(res => res.json())
+
+
 
 const DashBoard = () => {
-const { data, error, isLoading } = useSWR('https://jsonplaceholder.typicode.com/posts', fetcher)
+  console.log(useRouter)
+  const router = useRouter()
+  console.log(router)
 
-console.log(data);
+const session = useSession();
+
+if(session.status === "loading"){
+  return <p>Loading...</p>
+}
+
+if(session.status === "unauthenticated"){
+  router?.push("/dashboard/login");
+}
+
   return (
     <div>DashBoard</div>
   )
