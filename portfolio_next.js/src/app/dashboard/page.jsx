@@ -74,7 +74,7 @@ if (session.status === "authenticated") {
       <div className={styles.posts}>
         {isLoading
           ? "loading"
-          : data?.map((post) => (
+          : data && data.length > 0 ? data.map((post) => (
               <div className={styles.post} key={post._id}>
                 <div className={styles.imgContainer}>
                   <Image src={post.img} alt="" width={200} height={100} />
@@ -87,7 +87,12 @@ if (session.status === "authenticated") {
                   X
                 </span>
               </div>
-            ))}
+            )):(
+            <div className={styles.first}>
+              <h1>Hey, </h1>
+              <p>Try adding your First blog post</p>
+            </div>
+            )}
       </div>
       <form className={styles.new} onSubmit={handleSubmit}>
         <h1>Add New Post</h1>

@@ -40,9 +40,10 @@ async function getData(id) {
       </div>
       <div className={styles.imageContainer}>
         <Image
-          src={"https://images.pexels.com/photos/19045759/pexels-photo-19045759/free-photo-of-krustyland-luna-park-35mm.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load"}
+          src={data.img}
           alt=""
-          fill={true}
+          width={500}
+          height={400}
           className={styles.image}
         />
       </div>
