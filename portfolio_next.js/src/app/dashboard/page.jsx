@@ -14,14 +14,14 @@ const DashBoard = () => {
   console.log(router)
 
 
-  const fetcher = (...args) => fetch(...args).then((res)=> res.json());
+  const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 
   const session = useSession();
   const { data, mutate, error, isLoading } = useSWR(
-    `/api/posts/username=${session?.data?.user.name}`, fetcher
-  )
-
+    `/api/posts?username=${session?.data?.user.name}`,
+    fetcher
+  );
   const handleSubmit = async (e) => {
     e.preventDefault();
     const title = e.target[0].value;
@@ -30,7 +30,7 @@ const DashBoard = () => {
     const content = e.target[3].value;
 
     try {
-      await fetch("/api/posts", {
+     const datap = await fetch("/api/posts", {
         method: "POST",
         body: JSON.stringify({
           title,
@@ -41,6 +41,7 @@ const DashBoard = () => {
         }),
       });
       mutate();
+      console.log(datap)
       e.target.reset()
     } catch (err) {
       console.log(err);

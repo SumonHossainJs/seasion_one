@@ -5,11 +5,15 @@ import Image from "next/image";
 
 
 async function getData() {
-  const res = await fetch('https://jsonplaceholder.typicode.com/posts',{ next: { revalidate: 3600 } })
- 
- 
- 
-  return res.json()
+  const res = await fetch("http://localhost:3000/api/posts", {
+    cache: "no-store",
+  });
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch data");
+  }
+
+  return res.json();
 }
 
 const Blog = async () => {
@@ -17,10 +21,10 @@ const Blog = async () => {
   return (
     <div className={styles.mainContainer}>
       {data.map((item) => (
-        <Link href={`/blog/${item.id}`} className={styles.container} key={item.id}>
+        <Link href={`/blog/${item._id}`}  className={styles.container} key={item._id}>
           <div className={styles.imageContainer}>
             <Image
-              src={"https://images.pexels.com/photos/18978812/pexels-photo-18978812/free-photo-of-young-redhead-in-a-leather-jacket-and-sunglasses-sitting-on-a-bench.png?auto=compress&cs=tinysrgb&w=600&lazy=load"}
+              src={item.img}
               alt=""
               width={400}
               height={250}
@@ -29,7 +33,7 @@ const Blog = async () => {
           </div>
           <div className={styles.content}>
             <h1 className={styles.title}>{item.title}</h1>
-            <p className={styles.desc}>{item.body}</p>
+            <p className={styles.desc}>{item.desc}</p>
           </div>
         </Link>
       ))}

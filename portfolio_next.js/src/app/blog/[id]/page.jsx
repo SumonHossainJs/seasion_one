@@ -4,15 +4,17 @@ import Image from 'next/image';
 import { notFound } from 'next/navigation';
 
 async function getData(id) {
-    const res = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`,{ cache: "no-store",})
-    console.log(res);
-    
-   if(!res.ok){
-    return notFound();
-   }
-   
-    return res.json()
+  const res = await fetch(`http://localhost:3000/api/posts/${id}`, {
+    cache: "no-store",
+  });
+
+  if (!res.ok) {
+    return notFound()
   }
+
+  return res.json();
+}
+
   const BlogPost = async ({ params }) => {
     console.log(params.id)
   const data = await getData(params.id);
