@@ -13,11 +13,24 @@ async function getData(id) {
   }
 
   return res.json();
+  
 }
+
+export async function generateMetadata({ params }) {
+
+  const post = await getData(params.id)
+  return {
+    title: post.title,
+    description: post.desc,
+  };
+}
+
 
   const BlogPost = async ({ params }) => {
     console.log(params.id)
   const data = await getData(params.id);
+
+  
 
   return (
     <div className={styles.container}>
@@ -35,22 +48,21 @@ async function getData(id) {
             height={40}
             className={styles.avatar}
           />
-          <span className={styles.username}>Alu Vorta</span>
+          <span className={styles.username}>{data.username}</span>
         </div>
       </div>
       <div className={styles.imageContainer}>
         <Image
           src={data.img}
           alt=""
-          width={500}
-          height={400}
+        fill={true}
           className={styles.image}
         />
       </div>
     </div>
     <div className={styles.content}>
       <p className={styles.text}>
-       {data.body}
+       {data.content}
       </p>
     </div>
   </div>
